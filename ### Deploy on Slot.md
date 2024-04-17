@@ -29,7 +29,7 @@
 6. **Add World Address and Create Torii Instance**: Include the address of the world and create an instance of Torii slot:
 
     ```
-    slot d create aa-amegakure torii --rpc https://api.cartridge.gg/x/aa-amegakure/katana --world 0x5032bd4928e93b307934bde8164d88bef42bd4618893d7184f7c9ef26118c9e -v v0.5.1 --start-block 0
+    slot d create aa-amegakure torii --rpc https://api.cartridge.gg/x/aa-amegakure/katana --world INSERT_WORLD_ADDRESS -v v0.5.1 --start-block 0
     ```
 
 7. ./scripts/default_auth.sh
