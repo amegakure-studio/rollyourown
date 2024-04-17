@@ -33,8 +33,7 @@ struct Player {
     speed: usize,
     wanted: u8,
     leaderboard_version: u32,
-    game_over: bool,
-    is_drugged: bool,
+    game_over: bool
 }
 
 #[generate_trait]
@@ -111,7 +110,7 @@ enum PlayerStatus {
     BeingMugged: (),
     BeingArrested: (),
     AtPawnshop: (),
-    BeingGlobin: (),
+    BeingDrugged: (),
 }
 
 impl PlayerStatusIntrospectionImpl of Introspect<PlayerStatus> {
@@ -136,7 +135,7 @@ impl PlayerStatusIntrospectionImpl of Introspect<PlayerStatus> {
                     ('BeingMugged', serialize_member_type(@Ty::Tuple(array![].span()))),
                     ('BeingArrested', serialize_member_type(@Ty::Tuple(array![].span()))),
                     ('AtPawnshop', serialize_member_type(@Ty::Tuple(array![].span()))),
-                    ('BeingGlobin', serialize_member_type(@Ty::Tuple(array![].span()))),
+                    ('BeingDrugged', serialize_member_type(@Ty::Tuple(array![].span()))),
                 ]
                     .span()
             }
@@ -152,7 +151,7 @@ impl PlayerStatusIntoFelt252 of Into<PlayerStatus, felt252> {
             PlayerStatus::BeingMugged => 'BeingMugged',
             PlayerStatus::BeingArrested => 'BeingArrested',
             PlayerStatus::AtPawnshop => 'AtPawnshop',
-            PlayerStatus::BeingGlobin => 'BeingGlobin',
+            PlayerStatus::BeingDrugged => 'BeingDrugged',
         }
     }
 }

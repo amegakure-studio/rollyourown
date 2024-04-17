@@ -1,5 +1,3 @@
-use rollyourown::constants::SCALING_FACTOR;
-
 use rollyourown::models::location::LocationEnum;
 use rollyourown::models::drug::DrugEnum;
 
@@ -19,17 +17,17 @@ struct Market {
 #[generate_trait]
 impl MarketImpl of MarketTrait {
     #[inline(always)]
-    fn buy(ref self: Market, quantity: usize) -> u128 {
+    fn buy(ref self: Market, quantity: usize, scaling_factor: u128) -> u128 {
         assert(quantity < self.quantity, 'not enough liquidity');
-        let (amount, available, cash) = normalize(quantity, self);
+        let (amount, available, cash) = normalize(quantity, self, scaling_factor);
         let k = cash * available;
         let cost = (k / (available - amount)) - cash;
         cost
     }
 
     #[inline(always)]
-    fn sell(ref self: Market, quantity: usize) -> u128 {
-        let (amount, available, cash) = normalize(quantity, self);
+    fn sell(ref self: Market, quantity: usize, scaling_factor: u128) -> u128 {
+        let (amount, available, cash) = normalize(quantity, self, scaling_factor);
         let k = cash * available;
         let payout = cash - (k / (available + amount));
         payout
@@ -37,8 +35,8 @@ impl MarketImpl of MarketTrait {
 }
 
 
-fn normalize(amount: usize, market: Market) -> (u128, u128, u128) {
-    let amount: u128 = amount.into() * SCALING_FACTOR;
-    let available: u128 = (market.quantity).into() * SCALING_FACTOR;
+fn normalize(amount: usize, market: Market, scaling_factor: u128) -> (u128, u128, u128) {
+    let amount: u128 = amount.into() * scaling_factor;
+    let available: u128 = (market.quantity).into() * scaling_factor;
     (amount, available, market.cash)
 }

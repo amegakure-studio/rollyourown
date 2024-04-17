@@ -107,7 +107,6 @@ mod lobby {
                 speed: player_settings.speed,
                 leaderboard_version,
                 game_over: false,
-                is_drugged: false,
             };
 
             let game = Game {
