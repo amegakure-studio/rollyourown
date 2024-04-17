@@ -6,8 +6,8 @@ enum Action {
     Run: (),
     Pay: (),
     Fight: (),
-    AcceptDrugs: (),
-    DeclineDrugs: (),
+    Accept: (),
+    Decline: (),
 }
 
 #[derive(Copy, Drop, Serde, PartialEq)]
@@ -207,7 +207,7 @@ mod decide {
                         PlayerStatus::BeingDrugged => (Outcome::Unsupported, 0, 0, 0, 0, 0),
                     }
                 },
-                Action::AcceptDrugs => {
+                Action::Accept => {
                     game.scaling_factor = randomizer.between::<u128>(10_000, 30_000_00);
                     set!(world, (game));
 
@@ -221,7 +221,7 @@ mod decide {
                         },
                     }
                 },
-                Action::DeclineDrugs => {
+                Action::Decline => {
                     match player.status {
                         PlayerStatus::Normal => (Outcome::Unsupported, 0, 0, 0, 0, 0),
                         PlayerStatus::BeingMugged => (Outcome::Unsupported, 0, 0, 0, 0, 0),
