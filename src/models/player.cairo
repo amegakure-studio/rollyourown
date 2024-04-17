@@ -34,6 +34,7 @@ struct Player {
     wanted: u8,
     leaderboard_version: u32,
     game_over: bool,
+    is_drugged: bool,
 }
 
 #[generate_trait]

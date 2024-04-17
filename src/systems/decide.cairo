@@ -209,27 +209,31 @@ mod decide {
                     }
                 },
                 Action::AcceptDrugs => {
+                    player.is_drugged = true;
+
                     match player.status {
                         PlayerStatus::Normal => (Outcome::Unsupported, 0, 0, 0, 0, 0),
                         PlayerStatus::BeingMugged => (Outcome::Unsupported, 0, 0, 0, 0, 0),
                         PlayerStatus::BeingArrested => (Outcome::Unsupported, 0, 0, 0, 0, 0),
                         PlayerStatus::AtPawnshop => (Outcome::Unsupported, 0, 0, 0, 0, 0),
                         PlayerStatus::BeingGlobin => {
-                            (Outcome::Unsupported, 0, 0, 0, 0, 0)
+                            (Outcome::Drugged, 0, 0, 0, 0, 0)
                         },
                     }
-                }, // TODO: 
+                },
                 Action::DeclineDrugs => {
+                    player.is_drugged = false;
+
                     match player.status {
                         PlayerStatus::Normal => (Outcome::Unsupported, 0, 0, 0, 0, 0),
                         PlayerStatus::BeingMugged => (Outcome::Unsupported, 0, 0, 0, 0, 0),
                         PlayerStatus::BeingArrested => (Outcome::Unsupported, 0, 0, 0, 0, 0),
                         PlayerStatus::AtPawnshop => (Outcome::Unsupported, 0, 0, 0, 0, 0),
                         PlayerStatus::BeingGlobin => {
-                            (Outcome::Unsupported, 0, 0, 0, 0, 0)
+                            (Outcome::NotDrugged, 0, 0, 0, 0, 0)
                         }
                     }
-                }, // TODO: 
+                },
             };
 
             player.cash -= cash_loss;
