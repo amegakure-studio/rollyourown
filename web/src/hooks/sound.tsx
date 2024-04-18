@@ -26,6 +26,8 @@ export enum Sounds {
   Ooo = "Ooo.wav",
   Death = "Flatline.mp3",
   Punch = "Punch.mp3",
+  Goblin = "Goblin.mp3",
+  Mushroom = "Mushroom.mp3",
 }
 
 export interface SoundState {
@@ -61,10 +63,7 @@ export const initSoundStore = async () => {
   for (let sound in Sounds) {
     const soundKey = sound as keyof typeof Sounds;
     try {
-      state.library.buffers[Sounds[soundKey]] = await loadSoundBuffer(
-        `/sounds/${Sounds[soundKey]}`,
-        context,
-      );
+      state.library.buffers[Sounds[soundKey]] = await loadSoundBuffer(`/sounds/${Sounds[soundKey]}`, context);
     } catch (e) {}
   }
 
@@ -110,10 +109,7 @@ export const stopSound = (sound: Sounds, delay = 20) => {
   const { library, context } = useSoundStore.getState();
 
   if (!library.gains[sound]) return;
-  library.gains[sound].gain.exponentialRampToValueAtTime(
-    0.001,
-    context.currentTime + delay,
-  );
+  library.gains[sound].gain.exponentialRampToValueAtTime(0.001, context.currentTime + delay);
 
   setTimeout(() => {
     library.sources[sound].stop();

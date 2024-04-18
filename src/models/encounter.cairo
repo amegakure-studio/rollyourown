@@ -35,7 +35,7 @@ impl EncounterImpl of EncounterTrait {
         let game = get!(world, (*player.game_id), (Game));
 
         let encounter_settings = EncounterSettingsImpl::get(
-            game.game_mode, player, encounter.level + 1
+            game.game_mode, player, encounter.level + 1, game.scaling_factor
         );
         if encounter.level == 0 {
             // first meet, spawn new Encounter

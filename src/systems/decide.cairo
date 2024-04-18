@@ -28,7 +28,8 @@ trait IDecide<TContractState> {
 
 #[dojo::contract]
 mod decide {
-    use starknet::ContractAddress;
+    use core::serde::Serde;
+use starknet::ContractAddress;
     use starknet::get_caller_address;
 
     use rollyourown::constants::SCALING_FACTOR;
@@ -118,7 +119,7 @@ mod decide {
                                 world, @player, ref randomizer, EncounterType::Gang
                             );
                             let encounter_settings = EncounterSettingsImpl::get(
-                                game.game_mode, @player, encounter.level
+                                game.game_mode, @player, encounter.level, game.scaling_factor
                             );
                             encounter_settings.dmg.pct(60)
                         },
@@ -127,7 +128,7 @@ mod decide {
                                 world, @player, ref randomizer, EncounterType::Cops
                             );
                             let encounter_settings = EncounterSettingsImpl::get(
-                                game.game_mode, @player, encounter.level
+                                game.game_mode, @player, encounter.level, game.scaling_factor
                             );
                             encounter_settings.dmg.pct(80)
                         },
@@ -208,7 +209,7 @@ mod decide {
                     }
                 },
                 Action::Accept => {
-                    game.scaling_factor = randomizer.between::<u128>(10_000, 30_000_00);
+                    game.scaling_factor = randomizer.between::<u128>(10_000, 30_000);
                     player.is_drugged = true;
                     set!(world, (game));
 
@@ -322,7 +323,7 @@ mod decide {
                 world, player, ref randomizer, encounter_type
             );
             let encounter_settings = EncounterSettingsImpl::get(
-                (*game).game_mode, player, encounter.level
+                (*game).game_mode, player, encounter.level, *game.scaling_factor
             );
 
             // calc player dmg

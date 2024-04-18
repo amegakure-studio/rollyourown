@@ -15,8 +15,6 @@ use rollyourown::utils::events::{RawEventEmitterTrait, RawEventEmitterImpl};
 use rollyourown::utils::random::{Random, RandomImpl, RandomTrait};
 use rollyourown::utils::math::{MathTrait, MathImplU128};
 
-use rollyourown::constants::SCALING_FACTOR;
-
 use debug::PrintTrait;
 
 fn initialize_markets(
@@ -28,10 +26,11 @@ fn initialize_markets(
 ) {
     let mut drugs = DrugTrait::all();
 
+    let game = get!(world, game_id, Game);
     loop {
         match drugs.pop_front() {
             Option::Some(drug_id) => {
-                let price_settings = PriceSettingsImpl::get(game_mode, *drug_id);
+                let price_settings = PriceSettingsImpl::get(game_mode, *drug_id, game.scaling_factor);
                 let market_price = randomizer
                     .between::<u128>(price_settings.min_price, price_settings.max_price)
                     .try_into()
@@ -67,7 +66,7 @@ fn market_variations(
     let mut locations = LocationTrait::all();
     let game = get!(world, game_id, Game);
     let player = get!(world, (game_id, player_id), Player);
-    let market_settings = MarketSettingsImpl::get(game.game_mode);
+    let market_settings = MarketSettingsImpl::get(game.game_mode, 0);
     //let scaling_factor = get_liquidity_scaling_factor(market_settings, player.turn);
 
     loop {

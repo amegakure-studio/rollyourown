@@ -126,7 +126,7 @@ mod shop {
             }
 
             let item_settings = ItemSettingsImpl::get(
-                game.game_mode, item_id, level: item.level + 1
+                game.game_mode, item_id, level: item.level + 1, scaling_factor: game.scaling_factor
             );
 
             assert(player.cash >= item_settings.cost, 'too poor');
@@ -201,7 +201,7 @@ mod shop {
                         let player_item = get!(world, (game_id, player_id, *item_id), (Item));
 
                         let item_settings = ItemSettingsImpl::get(
-                            game.game_mode, *item_id, player_item.level + 1
+                            game.game_mode, *item_id, player_item.level + 1, game.scaling_factor
                         );
 
                         if player_item.level < shop_settings.max_item_level {

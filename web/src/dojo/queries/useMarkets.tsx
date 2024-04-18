@@ -22,12 +22,11 @@ export class MarketPrices {
       const locationId = node?.location_id;
       const drugId = node?.drug_id;
       const drugType = getDrugById(drugId)!.type;
-      const price =
-      Number(node?.cash) / Number(node?.quantity) / SCALING_FACTOR;
+      const price = Number(node?.cash) / Number(node?.quantity) / SCALING_FACTOR;
 
       const drugMarket: DrugMarket = {
         id: drugId,
-        type: drugType, 
+        type: drugType,
         price: price,
         marketPool: node as Market,
       };
@@ -47,11 +46,7 @@ export interface MarketsInterface {
   locationPrices?: LocationPrices;
 }
 
-export const useMarketPrices = ({
-  gameId,
-}: {
-  gameId?: string;
-}): MarketsInterface => {
+export const useMarketPrices = ({ gameId }: { gameId?: string }): MarketsInterface => {
   const { data } = useMarketPricesQuery(
     { gameId: Number(gameId) },
 

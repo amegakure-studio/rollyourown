@@ -1,6 +1,5 @@
 import { Market } from "@/generated/graphql";
 
-
 // must have same order than cairo enum
 export enum Location {
   Home,
@@ -31,7 +30,7 @@ export enum ItemEnum {
 
 export enum ItemTextEnum {
   Attack = "Attack",
-  Defense= "Defense",
+  Defense = "Defense",
   Transport = "Transport",
   Speed = "Speed",
 }
@@ -40,13 +39,16 @@ export enum PlayerStatus {
   Normal = "Normal",
   BeingMugged = "BeingMugged",
   BeingArrested = "BeingArrested",
-  AtPawnshop = "AtPawnshop"
+  AtPawnshop = "AtPawnshop",
+  BeingDrugged = "BeingDrugged",
 }
 
 export enum Action {
   Run,
   Pay,
   Fight,
+  Accept,
+  Decline,
 }
 
 export enum Outcome {
@@ -55,11 +57,12 @@ export enum Outcome {
   Escaped,
   Captured,
   Victorious,
+  Unsupported,
+  Drugged,
 }
-
 export enum GameMode {
   Test,
-  Unlimited
+  Unlimited,
 }
 
 export interface LocationInfo {
@@ -80,7 +83,7 @@ export interface DrugInfo {
 
 export interface ShopItemInfo {
   type: ItemEnum;
-  typeText : ItemTextEnum;
+  typeText: ItemTextEnum;
   name: string;
   cost: number;
   value: number;

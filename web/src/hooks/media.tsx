@@ -22,7 +22,7 @@ const mediaLibrary: MediaItem[] = [
   { name: "Gangsta's Paradise", filename: "C8_Gangsta_s Paradise.mp3" },
   { name: "I Got 5 On It", filename: "C9_I Got 5 On It.mp3" },
   { name: "Regulate", filename: "C10_Regulate.mp3" },
-
+  { name: "Dream Catcher", filename: "8_Dream_Catcher.mp3" },
 ];
 
 export interface MediaState {
@@ -139,6 +139,19 @@ export const forward = () => {
     currentIndex: (state.currentIndex + 1) % state.medias.length,
   }));
 
+  state.isPlaying && play();
+};
+
+export const selectSong = (songName: string) => {
+  const state = useMediaStore.getState();
+  state.medias[state.currentIndex].sound?.stop();
+
+  // Find the index of the new song
+  const newIndex = state.medias.findIndex((media) => media.name === songName);
+
+  useMediaStore.setState((state) => ({
+    currentIndex: newIndex % state.medias.length,
+  }));
   state.isPlaying && play();
 };
 

@@ -76,7 +76,7 @@ mod lobby {
             let start_time = get_block_timestamp();
 
             let game_settings = GameSettingsImpl::get(game_mode);
-            let player_settings = PlayerSettingsImpl::get(game_mode);
+            let player_settings = PlayerSettingsImpl::get(game_mode, SCALING_FACTOR);
             let shop_settings = ShopSettingsImpl::get(game_mode);
 
             let mut randomizer = RandomImpl::new(self.world());

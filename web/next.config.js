@@ -1,6 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  
   productionBrowserSourceMaps: true,
   reactStrictMode: true,
   images: {
@@ -8,8 +7,7 @@ const nextConfig = {
   },
 };
 
-
-import withPWA from "next-pwa"
+import withPWA from "next-pwa";
 // const withPWA = require("next-pwa")
 
 const config = withPWA({
@@ -17,7 +15,7 @@ const config = withPWA({
   register: true,
   skipWaiting: true,
   disableDevLogs: true,
-  disable: process.env.NODE_ENV === 'development'
+  disable: process.env.NODE_ENV === "development",
 })(nextConfig);
 
-export default config
+export default config;
